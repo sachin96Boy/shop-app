@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/screens/product_details_screen.dart';
 import 'package:shop_app/screens/product_overview_screen.dart';
 
 void main() {
@@ -20,6 +21,9 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: ProductOveviewScreen(),
+      routes: {
+        ProductDetailScreen.routeName: (context) => const ProductDetailScreen()
+      },
     );
   }
 }

@@ -34,9 +34,8 @@ class ProductItem extends StatelessWidget {
               textAlign: TextAlign.center,
             )),
         child: GestureDetector(
-          onTap: () => Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const ProductDetailScreen(),
-          )),
+          onTap: () => Navigator.of(context)
+              .pushNamed(ProductDetailScreen.routeName, arguments: {'id': id}),
           child: Image.network(
             imageUrl,
             fit: BoxFit.cover,
