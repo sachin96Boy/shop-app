@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
             secondary: Colors.orange,
           ),
         ),
-        home: ProductOveviewScreen(),
+        home: const ProductOveviewScreen(),
         routes: {
           ProductDetailScreen.routeName: (context) =>
               const ProductDetailScreen()
