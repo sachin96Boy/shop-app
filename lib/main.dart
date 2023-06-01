@@ -14,8 +14,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ProductsProvider(),
+    // pass changenotifierprovider.value when the context object is not usefull in the scene
+    // here if we pass the builer, it jst don't use the context so we could just
+    // pass _ to the context or follow this approach
+    return ChangeNotifierProvider.value(
+      value: ProductsProvider(),
       child: MaterialApp(
         title: 'My Shop Application',
         theme: ThemeData(
