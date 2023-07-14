@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/models/cart.dart';
+import 'package:shop_app/models/orders.dart';
 import 'package:shop_app/models/product_provider.dart';
 import 'package:shop_app/screens/cart_screen.dart';
 import 'package:shop_app/screens/product_details_screen.dart';
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Map<String, CartItem> items = {};
+    final List<OrderItem> orders = [];
     // pass changenotifierprovider.value when the context object is not usefull in the scene
     // here if we pass the builer, it jst don't use the context so we could just
     // pass _ to the context or follow this approach
@@ -27,6 +29,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider.value(
           value: Cart(items),
+        ),
+        ChangeNotifierProvider.value(
+          value: Orders(orders),
         ),
       ],
       child: MaterialApp(
