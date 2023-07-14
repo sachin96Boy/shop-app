@@ -36,7 +36,16 @@ class CartScreen extends StatelessWidget {
                               ?.color),
                     ),
                     backgroundColor: Theme.of(context).primaryColor,
-                  )
+                  ),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                        textStyle:
+                            TextStyle(color: Theme.of(context).primaryColor)),
+                    child: const Text(
+                      'Order Now',
+                    ),
+                    onPressed: () {},
+                  ),
                 ],
               )),
         )
