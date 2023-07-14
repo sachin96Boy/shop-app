@@ -22,6 +22,10 @@ class Cart with ChangeNotifier {
     return {..._items};
   }
 
+  int get itemCount {
+    return _items.length;
+  }
+
   void addItem(String productId, double price, String title) {
     // add to cart, if already
     //add only increse or decrease quantity
@@ -44,5 +48,6 @@ class Cart with ChangeNotifier {
             title: title),
       );
     }
+    notifyListeners();
   }
 }

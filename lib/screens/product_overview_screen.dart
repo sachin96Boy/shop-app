@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/models/cart.dart';
+import 'package:shop_app/widgets/badge.dart';
 
 import 'package:shop_app/widgets/products_grid.dart';
 
@@ -46,6 +49,17 @@ class _ProductOveviewScreenState extends State<ProductOveviewScreen> {
               ),
             ],
           ),
+          Consumer<Cart>(
+            builder: (_, cartData, ch) => BadgeCount(
+                value: cartData.itemCount.toString(),
+                color: Colors.orange,
+                child: ch),
+            child: IconButton(
+              icon: const Icon(Icons.shopping_cart),
+              onPressed: () {},
+              alignment: Alignment.center,
+            ),
+          )
         ],
       ),
       body: ProductsGrid(showFavourites: _showOnlyFavourites),

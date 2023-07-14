@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/models/cart.dart';
 import 'package:shop_app/models/product.dart';
 import 'package:shop_app/screens/product_details_screen.dart';
 
@@ -9,6 +10,7 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final product = Provider.of<Product>(context);
+    final cart = Provider.of<Cart>(context, listen: false);
     return Consumer<Product>(
       builder: (context, product, _) => ClipRRect(
         borderRadius: BorderRadius.circular(10.0),
@@ -27,7 +29,10 @@ class ProductItem extends StatelessWidget {
               trailing: IconButton(
                 icon: const Icon(Icons.shopping_bag),
                 color: Theme.of(context).colorScheme.secondary,
-                onPressed: () {},
+                onPressed: () {
+                  // add item to cart
+                  cart.addItem(product.id, product.price, product.title);
+                },
               ),
               title: Text(
                 product.title,
