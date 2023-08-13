@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shop_app/models/cart.dart';
 import 'package:shop_app/screens/cart_screen.dart';
 import 'package:shop_app/widgets/badge.dart';
+import 'package:shop_app/widgets/drawer.dart';
 
 import 'package:shop_app/widgets/products_grid.dart';
 
@@ -65,6 +66,7 @@ class _ProductOveviewScreenState extends State<ProductOveviewScreen> {
           )
         ],
       ),
+      drawer: const SideDrawer(),
       body: ProductsGrid(showFavourites: _showOnlyFavourites),
     );
   }
