@@ -50,6 +50,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
   }
 
   void _saveForm() {
+    final isValid = _formkey.currentState?.validate();
+
+    if (!isValid!) {
+      return;
+    }
     _formkey.currentState?.save();
     final formData = _formkey.currentState?.value;
     final newProduct = Product(
@@ -84,14 +89,20 @@ class _EditProductScreenState extends State<EditProductScreen> {
               FormBuilderTextField(
                 name: "title",
                 decoration: const InputDecoration(
-                  labelText: "Title",
-                ),
+                    labelText: "Title",
+                    errorStyle: TextStyle(color: Colors.red)),
                 textInputAction: TextInputAction.next,
                 onSubmitted: (_) {
                   FocusScope.of(context).requestFocus(_priceFocusNode);
                 },
                 onSaved: (newValue) {
                   initialValues["title"] = newValue!;
+                },
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Pleasr provide a value';
+                  }
+                  return null;
                 },
               ),
               FormBuilderTextField(
@@ -105,6 +116,17 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 },
                 onSaved: (newValue) {
                   initialValues["price"] = newValue!;
+                },
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'please enter a valid price';
+                  }
+                  if (double.tryParse(value) == null) {
+                    return 'please enter a valid price';
+                  }
+                  if (double.parse(value) <= 0) {
+                    return "please enter a valid value";
+                  }
                 },
               ),
               FormBuilderTextField(
