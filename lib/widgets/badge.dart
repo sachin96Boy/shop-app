@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:flutter/material.dart';
 
 class BadgeCount extends StatelessWidget {
   final Widget? child;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app/models/cart.dart';
+import '../models/cart.dart';
 
 class CartItemViewer extends StatelessWidget {
   final String id;

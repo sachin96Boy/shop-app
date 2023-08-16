@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/screens/orders_screen.dart';
-import 'package:shop_app/screens/user_products_screen.dart';
+import '../screens/orders_screen.dart';
+import '../screens/user_products_screen.dart';
 
 class SideDrawer extends StatelessWidget {
   const SideDrawer({super.key});

@@ -1,8 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:shop_app/models/product.dart';
+import '../models/product.dart';
 
 class EditProductScreen extends StatefulWidget {
   static const routeName = '/edit-product';
