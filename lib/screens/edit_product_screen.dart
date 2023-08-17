@@ -81,6 +81,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
     super.dispose();
   }
 
+// chor- message to improve
+  // there are some code duplication
+  // onmy code where I have to get product by id
+  // in 2 instances
+  // try thinking the logic again
+
   void _saveForm() {
     final isValid = _formkey.currentState?.validate();
 
