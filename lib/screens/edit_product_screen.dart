@@ -21,17 +21,40 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   final _imageUrlConroller = TextEditingController();
 
-  final initialValues = {
+  var initialValues = {
     "title": "",
     "price": "",
     "description": "",
     "imageUrl": ""
   };
 
+  var _isInit = true;
+
   @override
   void initState() {
     _imageUrlFocusNode.addListener(_updateImageUrl);
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      final productId = ModalRoute.of(context)?.settings.arguments as String;
+      if (productId != null.toString()) {
+        final editProduct =
+            Provider.of<ProductsProvider>(context, listen: false)
+                .findById(productId);
+        initialValues = {
+          "title": editProduct.title,
+          "price": editProduct.price.toString(),
+          "description": editProduct.description,
+          "imageUrl": ''
+        };
+        _imageUrlConroller.text = editProduct.imageUrl;
+      }
+    }
+    _isInit = false;
+    super.didChangeDependencies();
   }
 
   _updateImageUrl() {
@@ -64,16 +87,36 @@ class _EditProductScreenState extends State<EditProductScreen> {
     if (!isValid!) {
       return;
     }
+
     _formkey.currentState?.save();
     final formData = _formkey.currentState?.value;
-    final newProduct = Product(
-        id: DateTime.now().toString(),
-        title: formData?["title"],
-        price: double.parse(formData?["price"]),
-        description: formData?["description"],
-        imageUrl: formData?["imageUrl"]);
-    Provider.of<ProductsProvider>(context, listen: false)
-        .addproduct(newProduct);
+
+    final prodId = ModalRoute.of(context)!.settings.arguments as String;
+    final edProduct =
+        Provider.of<ProductsProvider>(context, listen: false).findById(prodId);
+    if (prodId != null.toString()) {
+      // not null means we have to edit the product
+      // make sure to not chnge fav state and id when updateing
+      final newProduct = Product(
+          id: edProduct.id,
+          title: formData?["title"],
+          price: double.parse(formData?["price"]),
+          description: formData?["description"],
+          imageUrl: formData?["imageUrl"],
+          isFavourite: edProduct.isFavourite);
+      Provider.of<ProductsProvider>(context, listen: false)
+          .updateProduct(prodId, newProduct);
+    } else {
+      // create a new product
+      final newProduct = Product(
+          id: DateTime.now().toString(),
+          title: formData?["title"],
+          price: double.parse(formData?["price"]),
+          description: formData?["description"],
+          imageUrl: formData?["imageUrl"]);
+      Provider.of<ProductsProvider>(context, listen: false)
+          .addproduct(newProduct);
+    }
     // print(newProduct);
     Navigator.of(context).pop();
   }
@@ -99,6 +142,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
             children: [
               FormBuilderTextField(
                 name: "title",
+                initialValue: initialValues['title'],
                 decoration: const InputDecoration(
                     labelText: "Title",
                     errorStyle: TextStyle(color: Colors.red)),
@@ -118,6 +162,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
               ),
               FormBuilderTextField(
                 name: "price",
+                initialValue: initialValues['price'],
                 decoration: const InputDecoration(labelText: "price"),
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
@@ -143,6 +188,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
               ),
               FormBuilderTextField(
                 name: "description",
+                initialValue: initialValues['description'],
                 decoration: const InputDecoration(
                   labelText: "Description",
                 ),
@@ -191,6 +237,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   Expanded(
                     child: FormBuilderTextField(
                       name: "imageUrl",
+                      // initialValue: initialValues['imageUrl'],
                       decoration: const InputDecoration(
                         labelText: "Image URL",
                       ),
