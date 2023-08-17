@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/models/product_provider.dart';
 import '../models/product.dart';
 
 class EditProductScreen extends StatefulWidget {
@@ -34,6 +36,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   _updateImageUrl() {
     if (!_imageUrlFocusNode.hasFocus) {
+      if ((!_imageUrlConroller.text.startsWith('http') &&
+              !_imageUrlConroller.text.startsWith('https')) ||
+          (!_imageUrlConroller.text.endsWith('.png') &&
+              !_imageUrlConroller.text.endsWith('.jpg') &&
+              !_imageUrlConroller.text.endsWith('.jpeg'))) {
+        return;
+      }
       setState(() {});
     }
   }
@@ -63,8 +72,10 @@ class _EditProductScreenState extends State<EditProductScreen> {
         price: double.parse(formData?["price"]),
         description: formData?["description"],
         imageUrl: formData?["imageUrl"]);
-
-    print(newProduct);
+    Provider.of<ProductsProvider>(context, listen: false)
+        .addproduct(newProduct);
+    // print(newProduct);
+    Navigator.of(context).pop();
   }
 
   @override
@@ -127,6 +138,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   if (double.parse(value) <= 0) {
                     return "please enter a valid value";
                   }
+                  return null;
                 },
               ),
               FormBuilderTextField(
@@ -139,6 +151,15 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 focusNode: _descriptionFocusNode,
                 onSaved: (newValue) {
                   initialValues["description"] = newValue!;
+                },
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'please enter a description';
+                  }
+                  if (value.length < 10) {
+                    return 'should be at least 10 characters long';
+                  }
+                  return null;
                 },
               ),
               Row(
@@ -179,6 +200,16 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       focusNode: _imageUrlFocusNode,
                       onSaved: (newValue) {
                         initialValues["imageUrl"] = newValue!;
+                      },
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'please enter a valid URL';
+                        }
+                        if (!value.startsWith('http') &&
+                            value.startsWith('https')) {
+                          return 'please enter a valid URL';
+                        }
+                        return null;
                       },
                       onSubmitted: (_) {
                         _saveForm();

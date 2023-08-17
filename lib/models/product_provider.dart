@@ -64,7 +64,7 @@ class ProductsProvider with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  void adproduct(Product value) {
+  void addproduct(Product value) {
     _items.add(value);
     notifyListeners();
   }
