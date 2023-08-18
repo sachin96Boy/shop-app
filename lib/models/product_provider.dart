@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/models/product.dart';
+import 'product.dart';
 
 class ProductsProvider with ChangeNotifier {
   final List<Product> _items = [
@@ -64,8 +64,22 @@ class ProductsProvider with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  void adproduct(Product value) {
+  void addproduct(Product value) {
     _items.add(value);
+    notifyListeners();
+  }
+
+  void updateProduct(String id, Product newProduct) {
+    final prodIndex = _items.indexWhere((element) => element.id == id);
+
+    if (prodIndex >= 0) {
+      _items[prodIndex] = newProduct;
+      notifyListeners();
+    }
+  }
+
+  void deleteProduct(String id) {
+    _items.removeWhere((element) => element.id == id);
     notifyListeners();
   }
 }

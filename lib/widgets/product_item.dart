@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app/models/cart.dart';
-import 'package:shop_app/models/product.dart';
-import 'package:shop_app/screens/product_details_screen.dart';
+import '../models/cart.dart';
+import '../models/product.dart';
+import '../screens/product_details_screen.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({super.key});
@@ -32,6 +32,17 @@ class ProductItem extends StatelessWidget {
                 onPressed: () {
                   // add item to cart
                   cart.addItem(product.id, product.price, product.title);
+                  // show snackbar component
+                  final snackBar = SnackBar(
+                    content: const Text('Item added to cart successfully'),
+                    action: SnackBarAction(
+                        label: 'Undo',
+                        onPressed: () {
+                          cart.removeSingleItem(product.id);
+                        }),
+                  );
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
               ),
               title: Text(
