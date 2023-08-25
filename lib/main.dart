@@ -17,10 +17,13 @@ import 'screens/user_products_screen.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp(
+      name: 'my-shopnew-app',
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  }
   runApp(const MyApp());
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
 }
 
 class MyApp extends StatelessWidget {

@@ -39,11 +39,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      final productId = ModalRoute.of(context)?.settings.arguments as String;
-      if (productId != null.toString()) {
+      final productId = ModalRoute.of(context)?.settings.arguments;
+      if (productId != null) {
         final editProduct =
             Provider.of<ProductsProvider>(context, listen: false)
-                .findById(productId);
+                .findById(productId.toString());
         initialValues = {
           "title": editProduct.title,
           "price": editProduct.price.toString(),
@@ -97,10 +97,10 @@ class _EditProductScreenState extends State<EditProductScreen> {
     _formkey.currentState?.save();
     final formData = _formkey.currentState?.value;
 
-    final prodId = ModalRoute.of(context)!.settings.arguments as String;
-    final edProduct =
-        Provider.of<ProductsProvider>(context, listen: false).findById(prodId);
-    if (prodId != null.toString()) {
+    final prodId = ModalRoute.of(context)?.settings.arguments;
+    if (prodId != null) {
+      final edProduct = Provider.of<ProductsProvider>(context, listen: false)
+          .findById(prodId.toString());
       // not null means we have to edit the product
       // make sure to not chnge fav state and id when updateing
       final newProduct = Product(
@@ -111,7 +111,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
           imageUrl: formData?["imageUrl"],
           isFavourite: edProduct.isFavourite);
       Provider.of<ProductsProvider>(context, listen: false)
-          .updateProduct(prodId, newProduct);
+          .updateProduct(prodId.toString(), newProduct);
     } else {
       // create a new product
       final newProduct = Product(

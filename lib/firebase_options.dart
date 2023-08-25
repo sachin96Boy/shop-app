@@ -45,37 +45,37 @@ class DefaultFirebaseOptions {
   }
 
   static FirebaseOptions web = FirebaseOptions(
-    apiKey: dotenv.env['APIKEY']!,
-    appId: dotenv.env['APPID']!,
-    messagingSenderId: dotenv.env['MESSAGINGSENDERID']!,
-    projectId: dotenv.env['PROJECTID']!,
+    apiKey: dotenv.env['APIKEY'] as String,
+    appId: dotenv.env['APPID'] as String,
+    messagingSenderId: dotenv.env['MESSAGINGSENDERID'] as String,
+    projectId: dotenv.env['PROJECTID'] as String,
     authDomain: dotenv.env['AUTHDOMAIN'],
     storageBucket: dotenv.env['STORAGEBUCKET'],
   );
 
   static FirebaseOptions android = FirebaseOptions(
-    apiKey: dotenv.env['APIKEY']!,
-    appId: dotenv.env['APPID']!,
-    messagingSenderId: dotenv.env['MESSGINGSENDERID']!,
-    projectId: dotenv.env['PROJECTID']!,
+    apiKey: dotenv.env['APIKEY'] as String,
+    appId: dotenv.env['APPID'] as String,
+    messagingSenderId: dotenv.env['MESSAGINGSENDERID'] as String,
+    projectId: dotenv.env['PROJECTID'] as String,
     storageBucket: dotenv.env['STORAGEBUCKET'],
   );
 
   static FirebaseOptions ios = FirebaseOptions(
-    apiKey: dotenv.env['APIKEY']!,
-    appId: dotenv.env['APPID']!,
-    messagingSenderId: dotenv.env['MESSAGINGSENDERID']!,
-    projectId: dotenv.env['PROJECTID']!,
+    apiKey: dotenv.env['APIKEY'] as String,
+    appId: dotenv.env['APPID'] as String,
+    messagingSenderId: dotenv.env['MESSAGINGSENDERID'] as String,
+    projectId: dotenv.env['PROJECTID'] as String,
     storageBucket: dotenv.env['STORAGEBUCKET'],
     iosClientId: dotenv.env['ISOCLIENTID'],
     iosBundleId: dotenv.env['ISOBUNDLEDID'],
   );
 
   static FirebaseOptions macos = FirebaseOptions(
-    apiKey: dotenv.env['APIKEY']!,
-    appId: dotenv.env['APPID']!,
-    messagingSenderId: dotenv.env['MESSAGINGSENDERID']!,
-    projectId: dotenv.env['PROJECTID']!,
+    apiKey: dotenv.env['APIKEY'] as String,
+    appId: dotenv.env['APPID'] as String,
+    messagingSenderId: dotenv.env['MESSAGINGSENDERID'] as String,
+    projectId: dotenv.env['PROJECTID'] as String,
     storageBucket: dotenv.env['STORAGEBUCKET'],
     iosClientId: dotenv.env['ISOCLIENTID'],
     iosBundleId: dotenv.env['ISOBUNDLEDID'],

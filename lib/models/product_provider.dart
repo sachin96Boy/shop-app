@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/models/repository/db.dart';
 import 'product.dart';
 
 class ProductsProvider with ChangeNotifier {
@@ -65,6 +66,22 @@ class ProductsProvider with ChangeNotifier {
   // }
 
   void addproduct(Product value) {
+    final newProduct = <String, dynamic>{
+      "title": value.title,
+      "description": value.description,
+      "price": value.price,
+      "imageUrl": value.imageUrl,
+      "isFavourite": value.isFavourite
+    };
+    db
+        .collection("products")
+        .add(newProduct)
+        .then((responseValue) =>
+            {print('DocumentSnapshot added with ID: ${responseValue.id}')})
+        .catchError((onError) {
+      print("error occured $onError");
+      return onError;
+    });
     _items.add(value);
     notifyListeners();
   }
